@@ -32,16 +32,14 @@ class Solution:
             # 对于符号位的情况。确保符号位出现在第一个位置或者紧随在e的后面
             elif s[i] == '+' or s[i] == '-':
                 # 若前面已经出现过符号位，则此时的符号位只能紧跟在e的后面
-                if has_sign:
-                    if s[i - 1] != 'E' or s[i - 1] != 'e':
-                        return False
+                if has_sign and s[i - 1] != 'E' and s[i - 1] != 'e':
+                    return False
                 # 若是第一次出现符号位
                 else:
                     has_sign = True
                     # 若该符号位不是在字符串的第一个位置，并且前面也不是e，则直接返回False
-                    if i > 0:
-                        if s[i - 1] != 'E' or s[i - 1] != 'e':
-                            return False
+                    if i > 0 and s[i - 1] != 'E' and s[i - 1] != 'e':
+                        return False
             # 考虑小数点的情况。确保至多出现一个小数点并且不是在e的后面
             elif s[i] == '.':
                 # 若前面已经出现了小数点或者e，则直接返回False。因为不能出现两个小数点，以及e的后面必须是整数
@@ -62,4 +60,4 @@ class Solution:
 
 if __name__ == '__main__':
     s = Solution()
-    print(s.isNumeric("123.45e+6"))
+    print(s.isNumeric("-1E-16"))
