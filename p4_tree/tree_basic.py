@@ -15,7 +15,8 @@ class TreeNode:
 
 class Solution:
     def pre_in_build_tree(self, pre, tin):
-        """使用前序序列和中序序列构建二叉树。要求所输入的前序序列和中序序列中不含重复数字"""
+        """使用前序序列和中序序列构建二叉树。要求所输入的前序序列和中序序列中不含重复数字，
+        因为需要根据数值来确定根节点在中序序列中的位置"""
         if not pre or not tin:
             return None
         if set(pre) != set(tin):
