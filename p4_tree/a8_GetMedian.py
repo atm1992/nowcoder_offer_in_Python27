@@ -15,7 +15,6 @@
 
 class Solution:
     def __init__(self):
-        # 借助两个数组来实现
         self.head = []
         self.tail = []
         # head_flag为True时，插入新元素到head中，插入完以后，变成False
@@ -29,24 +28,20 @@ class Solution:
                 self.tail.append(num)
                 min_index = self.tail.index(min(self.tail))
                 self.tail.insert(0, self.tail.pop(min_index))
-            elif not self.head or self.head[0] <= num:
+            elif not self.head or self.head[0] < num:
                 self.head.insert(0, num)
             else:
                 self.head.append(num)
-                max_index = self.head.index(max(self.head))
-                self.head.insert(0, self.head.pop(max_index))
         else:
             if self.head[0] > num:
                 self.tail.insert(0, self.head.pop(0))
                 self.head.append(num)
                 max_index = self.head.index(max(self.head))
                 self.head.insert(0, self.head.pop(max_index))
-            elif not self.tail or num <= self.tail[0]:
+            elif not self.tail or num < self.tail[0]:
                 self.tail.insert(0, num)
             else:
                 self.tail.append(num)
-                min_index = self.tail.index(min(self.tail))
-                self.tail.insert(0, self.tail.pop(min_index))
         self.head_flag = not self.head_flag
 
     # GetMedian方法要求输入一个参数，否则验证不通过。因此这里随便写了一个形参x，实际并未用到

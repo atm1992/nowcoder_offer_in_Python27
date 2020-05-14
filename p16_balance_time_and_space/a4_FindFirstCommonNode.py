@@ -16,7 +16,7 @@
 class Solution:
     def FindFirstCommonNode(self, pHead1, pHead2):
         # 若链表1或链表2为空，则返回None
-        if pHead1 is None or pHead2 is None:
+        if not pHead1 or not pHead2:
             return None
         # 定义两个临时指针变量
         p1, p2 = pHead1, pHead2

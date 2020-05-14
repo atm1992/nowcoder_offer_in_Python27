@@ -1,10 +1,11 @@
-#-*- coding: UTF-8 -*-
+# -*- coding: UTF-8 -*-
 from __future__ import print_function
 
 """
 深度优先遍历 使用递归或栈
 广度优先遍历 使用队列
 """
+
 
 class TreeNode:
     def __init__(self, x):
@@ -58,6 +59,22 @@ class Solution:
         # 最后打印传入节点（根节点）的右子树上的所有节点的信息
         self.preorder(node.right)
 
+    def preorder_non_recursive(self, node):
+        """先序遍历的非递归版本"""
+        if not node:
+            return None
+        stack = [node]
+        while stack:
+            cur_node = stack.pop()
+            # 最先打印根节点
+            print(cur_node.val, end=" ")
+            # 右孩子节点先入栈，后出栈
+            if cur_node.right:
+                stack.append(cur_node.right)
+            # 左孩子节点后入栈，先出栈
+            if cur_node.left:
+                stack.append(cur_node.left)
+
     def inorder(self, node):
         """深度优先遍历 之 中序遍历。左子树/节点、根节点、右子树/节点"""
         # 递归终止条件
@@ -70,6 +87,22 @@ class Solution:
         # 最后打印传入节点（根节点）的右子树上的所有节点的信息
         self.inorder(node.right)
 
+    def inorder_non_recursive(self, node):
+        """中序遍历的非递归版本"""
+        if not node:
+            return None
+        stack = []
+        cur_node = node
+        while cur_node or stack:
+            if cur_node:
+                # 先一路找到最左子节点
+                stack.append(cur_node)
+                cur_node = cur_node.left
+            else:
+                cur_node = stack.pop()
+                print(cur_node.val, end=" ")
+                cur_node = cur_node.right
+
     def postorder(self, node):
         """深度优先遍历 之 后序遍历。左子树/节点、右子树/节点、根节点"""
         # 递归终止条件
@@ -81,6 +114,28 @@ class Solution:
         self.postorder(node.right)
         # 最后打印传入节点（根节点）的信息
         print(node.val, end=" ")
+
+    def postorder_non_recursive(self, node):
+        """后序遍历的非递归版本。若类似于前序遍历直接写，会有些麻烦，因为这里需要判断节点的访问状态，根节点需要最后出栈。
+        转换思路，将后序(左->右->根)看作是(根->右->左)的逆序"""
+        if not node:
+            return None
+        stack = [node]
+        res = []
+        while stack:
+            cur_node = stack.pop()
+            # 先打印根节点
+            res.append(cur_node.val)
+            # 左孩子节点先入栈，后出栈
+            if cur_node.left:
+                stack.append(cur_node.left)
+            # 右孩子节点后入栈，先出栈
+            if cur_node.right:
+                stack.append(cur_node.right)
+        # res.reverse()
+        # return res
+        while res:
+            print(res.pop(), end=" ")
 
     def breadth_travel(self, root):
         """广度优先遍历（即 层次遍历）"""
@@ -109,7 +164,13 @@ if __name__ == '__main__':
     s.breadth_travel(root)
     print("\n前序序列：")
     s.preorder(root)
+    print("\n前序序列(非递归)：")
+    s.preorder_non_recursive(root)
     print("\n中序序列：")
     s.inorder(root)
+    print("\n中序序列(非递归)：")
+    s.inorder_non_recursive(root)
     print("\n后序序列：")
     s.postorder(root)
+    print("\n后序序列(非递归)：")
+    s.postorder_non_recursive(root)
