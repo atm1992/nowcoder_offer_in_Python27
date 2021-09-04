@@ -13,10 +13,6 @@
 
 
 class Solution:
-<<<<<<< HEAD
-    # s 源字符串
-=======
->>>>>>> update
     def replaceSpace(self, s):
         if not isinstance(s, str) or len(s) < 1:
             return ''
